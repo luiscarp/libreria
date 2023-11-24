@@ -79,6 +79,24 @@ export default async function handler(req, res) {
             )
             break
 
+            case "PUT":
+                console.log(body)
+                connection.query(
+                    "UPDATE alumnos SET nombre = ?, apellido = ?, correo = ?, matricula = ?, edad = ? WHERE PKid = ? ",
+                    [body.nombre, body.apellido, body.correo, body.matricula, body.edad, body.id],
+                    function (err, results, fields) {
+                        if(err) {
+                            console.log(err)
+                            res.status(500).json({error:err})
+                        } else {
+                            console.log(results)
+                            connection.end()
+                            return res.status(200).json(results)
+                        }
+                    }
+
+                )
+
 
     }
 

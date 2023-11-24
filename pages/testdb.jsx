@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Toaster } from "react-hot-toast";
+import Popup from "@/components/Popup";
 
 
 
@@ -35,6 +36,10 @@ export default function Testdb() {
   const [matricula, setMatricula] = useState("");
 
   const [edad, setEdad] = useState("");
+
+  const[open, setOpen] = useState(false)
+
+  const[alumno, setAlumno] = useState({})
 
   useEffect(() => {
     console.log("useEffect")
@@ -113,6 +118,8 @@ export default function Testdb() {
     <div>
       <Toaster position="bottom-center" />
 
+      <Popup open = {open} setOpen={setOpen} alumno={alumno} getData ={getData}></Popup>
+
       <div className="flex flex-col">
         <input
           type="text"
@@ -166,6 +173,24 @@ export default function Testdb() {
               onClick={() => eliminarData(alumno.PKid)}
             >
               Elminar
+            </button>
+            <button
+              className=" mx-3 bg-blue-600 text-black"
+              onClick={() => {
+
+                setAlumno(alumno),
+                
+                setOpen(true)
+              
+              
+              }
+              
+              
+              
+              
+              }
+            >
+              Editar
             </button>
           </div>
         ))}
