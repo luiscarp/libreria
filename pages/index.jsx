@@ -10,23 +10,27 @@ export default function Home() {
 
 
   return (
-    <main className='h-screen w-screen bg-gray-500 flex-col'>
-      <h1 className='text-white text-6xl'> Hola {name} </h1>
+    
+      <div className= ' h-screen flex-col justify-center items-center bg-[url("https://www.comunidadbaratz.com/wp-content/uploads/Los-6-puntos-basicos-que-caracterizan-a-las-bibliotecas-especializadas.jpg")] bg-cover bg-center'>
 
-      <Link href="/testdb" className='text-4xl text-center text-white'>
-        alumnos
-      </Link>
-      <Link href="/testdb2" className='text-4xl text-center text-white'>
-        clientes
-      </Link>
-      <Link href="/testdb3" className='text-4xl text-center text-white'>
-        libros
-      </Link>
-      <Link href="/testdb4" className='text-4xl text-center text-white'>
-        sucursales
-      </Link>
+      <h1 className='text-white text-6xl font-bold my-5'> Sistema de bibliotecas estudiantiles CUU </h1>
+
+      <div className='flex justify-between mt-60'>
+        <a className=' text-white text-4xl mx-8' href='/testdb'> Alumnos </a>
+
+        <a className=' text-white text-4xl mx-8' href='/testdb2'> Clientes </a>
+
+        <a className=' text-white text-4xl mx-8' href='/testdb3'> Libros </a>
+
+        <a className=' text-white text-4xl mx-8' href='/testdb4'> Sucursales </a>
+
+      </div>
+
+
 
       
-    </main>
+    </div>
+    
+
   )
 }

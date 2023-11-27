@@ -1,74 +1,54 @@
-import { Fragment, useRef, useState } from 'react'
+import { Fragment, useRef, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
-import { useEffect } from 'react'
-import { Alice } from 'next/font/google'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 
-export default function Popup({ open, setOpen, alumno, getData }) {
-
-
+export default function PopupClientes({ open, setOpen, cliente, getData }) {
     const cancelButtonRef = useRef(null)
 
-    const [nombre, setNombre] = useState(alumno.nombre)
-
-    const [apellido, setApellido] = useState(alumno.apellido)
-
-    const [correo, setCorreo] = useState(alumno.correo)
-
-    const [matricula, setMatricula] = useState(alumno.matricula)
-
-    const [edad, setEdad] = useState(alumno.edad)
+    const [nombreCliente, setNombreCliente] = useState(cliente.Nombre_cliente)
+    const [numeroMembresia, setNumeroMembresia] = useState(cliente.Numero_membresia)
+    const [membresiaActiva, setMembresiaActiva] = useState(cliente.Membresia_activa)
+    const [direccionEnvio, setDireccionEnvio] = useState(cliente.Direccion_envio)
+    const [librosComprados, setLibrosComprados] = useState(cliente.Libros_comprados)
 
     useEffect(() => {
-        setNombre(alumno.nombre)
+        setNombreCliente(cliente.Nombre_cliente)
+        setNumeroMembresia(cliente.Numero_membresia)
+        setMembresiaActiva(cliente.Membresia_activa)
+        setDireccionEnvio(cliente.Direccion_envio)
+        setLibrosComprados(cliente.Libros_comprados)
+    }, [cliente])
 
-        setApellido(alumno.apellido)
-
-        setCorreo(alumno.correo)
-
-        setMatricula(alumno.matricula)
-
-        setEdad(alumno.edad)
-    }, [alumno])
-
-    const sendData = async () =>{
-        console.log("send data")
-        console.log(nombre, apellido, correo, matricula, edad)
+    const sendData = async () => {
         if (
-            nombre === "" ||
-            apellido === "" ||
-            correo === "" ||
-            matricula === "" ||
-            edad === ""
-          ) {
+            !nombreCliente ||
+            !numeroMembresia ||
+            !membresiaActiva ||
+            !direccionEnvio ||
+            !librosComprados
+        ) {
             toast.error("Llena todos los campos");
-      
             return;
-          }
-          try {
-            const resultado = await axios.put("/api/db", {
-              nombre: nombre,
-              apellido: apellido,
-              correo: correo,
-              matricula: matricula,
-              edad: edad,
-              id: alumno.PKid
+        }
+        try {
+            const resultado = await axios.put("/api/clientes", {
+                Nombre_cliente: nombreCliente,
+                Numero_membresia: numeroMembresia,
+                Membresia_activa: membresiaActiva,
+                Direccion_envio: direccionEnvio,
+                Libros_comprados: librosComprados,
+                id: cliente.PKid // Asumiendo que cada cliente tiene un identificador único
             });
-            toast.success("datos correctos");
-            getData()
-            setOpen(false)
-          } catch (error) {
-            console.log(console.log(error));
-          }
-      
-
-
-
+            toast.success("Cliente actualizado correctamente");
+            getData();
+            setOpen(false);
+        } catch (error) {
+            console.error(error);
+            toast.error("Error al actualizar el cliente");
+        }
     }
-
-    
 
 
     return (
@@ -108,43 +88,41 @@ export default function Popup({ open, setOpen, alumno, getData }) {
                                                 Edita al alumno
                                             </Dialog.Title>
                                             <div className="mt-2 flex flex-col">
-      
-                                                    <input
-                                                        type="text"
-                                                        value={nombre}
-                                                        className='text-black'
-                                                        placeholder="Nombre"
-                                                        onChange={(e) => setNombre(e.target.value)}
-                                                    />
-                                                    <input
-                                                        type="text"
-                                                        value={apellido}
-                                                        className='text-black'
-                                                        placeholder="Apellidos"
-                                                        onChange={(e) => setApellido(e.target.value)}
-                                                    />
-                                                    <input
-                                                        type="text"
-                                                        value={correo}
-                                                        className='text-black'
-                                                        placeholder="Correo"
-                                                        onChange={(e) => setCorreo(e.target.value)}
-                                                    />
-                                                    <input
-                                                        type="text"
-                                                        value={matricula}
-                                                        className='text-black'
-                                                        placeholder="Matricula"
-                                                        onChange={(e) => setMatricula(e.target.value)}
-                                                    />
-                                                    <input
-                                                        type="text"
-                                                        value={edad}
-                                                        className='text-black'
-                                                        placeholder="Edad"
-                                                        onChange={(e) => setEdad(e.target.value)}
-                                                    />
-  
+                                                <input
+                                                    type="text"
+                                                    value={nombreCliente}
+                                                    className='text-black'
+                                                    
+                                                    onChange={(e) => setNombreCliente(e.target.value)}
+                                                />
+                                                <input
+                                                    type="text"
+                                                    value={numeroMembresia}
+                                                    className='text-black'
+                                                    
+                                                    onChange={(e) => setNumeroMembresia(e.target.value)}
+                                                />
+                                                <input
+                                                    type="text"
+                                                    value={membresiaActiva}
+                                                    className='text-black'
+                                                   
+                                                    onChange={(e) => setMembresiaActiva(e.target.value)}
+                                                />
+                                                <input
+                                                    type="text"
+                                                    value={direccionEnvio}
+                                                    className='text-black'
+                                                    
+                                                    onChange={(e) => setDireccionEnvio(e.target.value)}
+                                                />
+                                                <input
+                                                    type="text"
+                                                    value={librosComprados}
+                                                    className='text-black'
+                                                   
+                                                    onChange={(e) => setLibrosComprados(e.target.value)}
+                                                />
                                             </div>
                                         </div>
                                     </div>

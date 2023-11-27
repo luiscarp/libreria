@@ -2,7 +2,7 @@ import mysql from "mysql2";
 
 
 export default async function handler(req, res) {
-    const { method, body,query } = req
+    const { method, body, query } = req
 
     const connection = mysql.createConnection({
         host: "Localhost",
@@ -38,23 +38,23 @@ export default async function handler(req, res) {
 
 
             connection.query("INSERT INTO clientes (Nombre_cliente, Numero_membresia, Membresia_activa, Direccion_envio, Libros_comprados) VALUES(?,?,?,?,?)",
-            [body.nombre_cliente, body.numero_membresia, body.membresia_activa, body.direccion_envio, body.libros_comprados], 
-            
-            
-            
-            function (err, results, fields) {
-                if (err) {
-                    console.log(err)
-                    res.status(500).json({ error: err })
+                [body.nombre_cliente, body.numero_membresia, body.membresia_activa, body.direccion_envio, body.libros_comprados],
 
-                } else {
-                    console.log(results)
-                    connection.end()
-                    return res.status(200).json(results)
-                }
-            })
 
-            
+
+                function (err, results, fields) {
+                    if (err) {
+                        console.log(err)
+                        res.status(500).json({ error: err })
+
+                    } else {
+                        console.log(results)
+                        connection.end()
+                        return res.status(200).json(results)
+                    }
+                })
+
+
             break
 
         case "DELETE":
@@ -65,7 +65,7 @@ export default async function handler(req, res) {
                 function (err, results, fields) {
                     if (err) {
                         console.log(err)
-                        res.status(500).json({error:err})
+                        res.status(500).json({ error: err })
                     } else {
                         console.log(results)
                         connection.end()
@@ -73,11 +73,29 @@ export default async function handler(req, res) {
                     }
                 }
 
-               
+
 
 
             )
             break
+
+        case "PUT":
+            console.log(body)
+            connection.query(
+                "UPDATE clientes SET Nombre_cliente = ?, Numero_membresia = ?, Membresia_activa = ?, Direccion_envio = ?, Libros_comprados = ? WHERE PKid = ? ",
+                [body.nombre_cliente, body.numero_membresia, body.membresia_activa, body.direccion_envio, body.libros_comprados, body.id],
+                function (err, results, fields) {
+                    if (err) {
+                        console.log(err)
+                        res.status(500).json({ error: err })
+                    } else {
+                        console.log(results)
+                        connection.end()
+                        return res.status(200).json(results)
+                    }
+                }
+
+            )
 
 
     }

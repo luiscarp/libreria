@@ -1,8 +1,10 @@
+import Navbar from "@/components/Navbar";
 import mysql from "mysql2";
 
 
+
 export default async function handler(req, res) {
-    const { method, body,query } = req
+    const { method, body, query } = req
 
     const connection = mysql.createConnection({
         host: "Localhost",
@@ -38,23 +40,23 @@ export default async function handler(req, res) {
 
 
             connection.query("INSERT INTO alumnos (nombre, apellido, correo, matricula, edad) VALUES(?,?,?,?,?)",
-            [body.nombre, body.apellido, body.correo, body.matricula, body.edad], 
-            
-            
-            
-            function (err, results, fields) {
-                if (err) {
-                    console.log(err)
-                    res.status(500).json({ error: err })
+                [body.nombre, body.apellido, body.correo, body.matricula, body.edad],
 
-                } else {
-                    console.log(results)
-                    connection.end()
-                    return res.status(200).json(results)
-                }
-            })
 
-            
+
+                function (err, results, fields) {
+                    if (err) {
+                        console.log(err)
+                        res.status(500).json({ error: err })
+
+                    } else {
+                        console.log(results)
+                        connection.end()
+                        return res.status(200).json(results)
+                    }
+                })
+
+
             break
 
         case "DELETE":
@@ -65,7 +67,7 @@ export default async function handler(req, res) {
                 function (err, results, fields) {
                     if (err) {
                         console.log(err)
-                        res.status(500).json({error:err})
+                        res.status(500).json({ error: err })
                     } else {
                         console.log(results)
                         connection.end()
@@ -73,29 +75,29 @@ export default async function handler(req, res) {
                     }
                 }
 
-               
+
 
 
             )
             break
 
-            case "PUT":
-                console.log(body)
-                connection.query(
-                    "UPDATE alumnos SET nombre = ?, apellido = ?, correo = ?, matricula = ?, edad = ? WHERE PKid = ? ",
-                    [body.nombre, body.apellido, body.correo, body.matricula, body.edad, body.id],
-                    function (err, results, fields) {
-                        if(err) {
-                            console.log(err)
-                            res.status(500).json({error:err})
-                        } else {
-                            console.log(results)
-                            connection.end()
-                            return res.status(200).json(results)
-                        }
+        case "PUT":
+            console.log(body)
+            connection.query(
+                "UPDATE alumnos SET nombre = ?, apellido = ?, correo = ?, matricula = ?, edad = ? WHERE PKid = ? ",
+                [body.nombre, body.apellido, body.correo, body.matricula, body.edad, body.id],
+                function (err, results, fields) {
+                    if (err) {
+                        console.log(err)
+                        res.status(500).json({ error: err })
+                    } else {
+                        console.log(results)
+                        connection.end()
+                        return res.status(200).json(results)
                     }
+                }
 
-                )
+            )
 
 
     }
