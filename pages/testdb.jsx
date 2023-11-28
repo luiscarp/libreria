@@ -13,15 +13,7 @@ import ListaAlumnos from "@/components/ListaAlumnos";
 
 // peticiones al api
 
-export async function getServerSideProps() {
-  const res = await axios.get("http://localhost:3000/api/db");
-  const data = await res.data;
-  return {
-    props: {
-      data,
-    },
-  };
-}
+
 
 export default function Testdb() {
   //console.log(data)
@@ -43,9 +35,12 @@ export default function Testdb() {
   }, [])
 
   const getData = async () => {
+    toast.loading("wenas getData")
     const res = await axios.get("/api/db")
     const data = await res.data
     setData(data)
+    toast.dismiss()
+    toast.success("se supone que ya quedo")
   }
 
 
@@ -116,7 +111,7 @@ export default function Testdb() {
 
 
       <div className="flex">
-        <NuevoAlumno setData = {setData} getData = {getData} sendData = {sendData} data={data}></NuevoAlumno>
+        <NuevoAlumno  getData ={getData} ></NuevoAlumno>
 
         <ListaAlumnos alumno={alumno} data={data} setAlumno = {setAlumno}  getData= {getData} open = {open}></ListaAlumnos>
 

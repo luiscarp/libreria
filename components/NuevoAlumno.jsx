@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 
 
 
-function NuevoAlumno(getData) {
+function NuevoAlumno({getData}) {
 
   const [loading, setLoading] = useState(false);
 
@@ -52,7 +52,7 @@ function NuevoAlumno(getData) {
         edad: edad,
       });
       toast.success("datos correctos");
-      getData()
+     getData()
     } catch (error) {
       console.log(console.log(error));
     }
