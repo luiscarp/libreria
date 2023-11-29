@@ -26,6 +26,11 @@ export default async function handler(req, res){
 
             }
             break
+        case "GET":
+            const result = await alumnos.find().toArray()
+            return res.status(200).json(result)
+
+            break
 
 
 
