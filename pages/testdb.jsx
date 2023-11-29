@@ -28,12 +28,6 @@ export default function Testdb() {
 
   const[alumno, setAlumno] = useState({})
 
-  useEffect(() => {
-    console.log("useEffect")
-
-    getData(data)
-  }, [])
-
   const getData = async () => {
     toast.loading("wenas getData")
     const res = await axios.get("/api/db")
@@ -44,59 +38,6 @@ export default function Testdb() {
   }
 
 
-
-
-  const sendData = async () => {
-    setLoading(true);
-    console.log("sendData");
-    console.log(nombre, apellido, correo, matricula, edad);
-    if (
-      nombre === "" ||
-      apellido === "" ||
-      correo === "" ||
-      matricula === "" ||
-      edad === ""
-    ) {
-      toast.error("Llena todos los campos");
-      setLoading(false);
-
-      return;
-    }
-
-    try {
-      const resultado = await axios.post("/api/db", {
-        nombre: nombre,
-        apellido: apellido,
-        correo: correo,
-        matricula: matricula,
-        edad: edad,
-      });
-      toast.success("datos correctos");
-      getData()
-    } catch (error) {
-      console.log(console.log(error));
-    }
-
-    setLoading(false);
-  };
-
-  const eliminarData = async (id) => {
-    console.log("eliminarData", id);
-    try {
-      const resultado = await axios.delete(`/api/db?id=${id}`)
-      console.log(resultado)
-      toast.success("datos elminiados")
-      getData()
-
-    }
-    catch {
-
-      toast.error("error al eliminar")
-
-    }
-
-
-  };
 
 
 

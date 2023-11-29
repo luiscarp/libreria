@@ -16,13 +16,13 @@ export default function Home() {
       <h1 className='text-white text-6xl font-bold my-5'> Sistema de bibliotecas estudiantiles CUU </h1>
 
       <div className='flex justify-between mt-60'>
-        <link className=' text-white text-4xl mx-8' href='/testdb'> Alumnos </link>
+        <Link className=' text-white text-4xl mx-8' href='/testdb'> Alumnos </Link>
 
-        <link className=' text-white text-4xl mx-8' href='/testdb2'> Clientes </link>
+        <Link className=' text-white text-4xl mx-8' href='/testdb2'> Clientes </Link>
 
-        <link className=' text-white text-4xl mx-8' href='/testdb3'> Libros </link>
+        <Link className=' text-white text-4xl mx-8' href='/testdb3'> Libros </Link>
 
-        <link className=' text-white text-4xl mx-8' href='/testdb4'> Sucursales </link>
+        <Link className=' text-white text-4xl mx-8' href='/testdb4'> Sucursales </Link>
 
       </div>
 
